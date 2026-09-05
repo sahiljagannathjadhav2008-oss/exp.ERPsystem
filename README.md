@@ -13,7 +13,7 @@ A single-company, offline-first Flutter Android ERP for Indian SMEs. Data stays 
 - Employees and payroll records
 - Day Book, Ledger, Trial Balance, Profit & Loss, Balance Sheet, Stock Summary
 - Invoice PDF/print
-- JSON backup and restore
+- JSON backup and    restore
 - Audit log
 - Dashboard and quick actions
 - GitHub Actions release APK build
