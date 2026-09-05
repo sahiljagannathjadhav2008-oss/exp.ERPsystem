@@ -3,7 +3,9 @@ name: Build Offline ERP APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 permissions:
