@@ -8,6 +8,9 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
 
@@ -17,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -41,7 +44,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: offline-erp-release
           path: build/app/outputs/flutter-apk/app-release.apk
