@@ -1,4 +1,3 @@
-```kotlin
 package com.builtdifferent.erp.ui.screens.sales
 
 import androidx.compose.foundation.clickable
@@ -6,17 +5,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.dp
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.builtdifferent.erp.data.local.entity.SalesInvoiceEntity
 import com.builtdifferent.erp.util.DateUtils
 import com.builtdifferent.erp.util.Money
@@ -35,18 +42,27 @@ fun SalesInvoiceListScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Sales Invoices") },
-                navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }
+                navigationIcon = {
+                    TextButton(onClick = onBack) {
+                        Text("Back")
+                    }
+                }
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onNewInvoice) {
-                Icon(Icons.Filled.Add, contentDescription = "New Invoice")
+            FloatingActionButton(
+                onClick = onNewInvoice
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = "New Invoice"
+                )
             }
         }
     ) { padding ->
         if (state.invoices.isEmpty()) {
             Box(
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
                 contentAlignment = Alignment.Center
@@ -55,15 +71,20 @@ fun SalesInvoiceListScreen(
             }
         } else {
             LazyColumn(
-                Modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
                 contentPadding = PaddingValues(bottom = 88.dp)
             ) {
-                items(state.invoices, key = { it.salesInvoiceId }) { invoice ->
+                items(
+                    items = state.invoices,
+                    key = { it.salesInvoiceId }
+                ) { invoice ->
                     InvoiceRow(
                         invoice = invoice,
-                        onClick = { onOpenInvoice(invoice.salesInvoiceId) }
+                        onClick = {
+                            onOpenInvoice(invoice.salesInvoiceId)
+                        }
                     )
                     HorizontalDivider()
                 }
@@ -73,9 +94,14 @@ fun SalesInvoiceListScreen(
 }
 
 @Composable
-private fun InvoiceRow(invoice: SalesInvoiceEntity, onClick: () -> Unit) {
+private fun InvoiceRow(
+    invoice: SalesInvoiceEntity,
+    onClick: () -> Unit
+) {
     ListItem(
-        headlineContent = { Text(invoice.invoiceNumber) },
+        headlineContent = {
+            Text(invoice.invoiceNumber)
+        },
         supportingContent = {
             Text(
                 DateUtils.formatDate(invoice.invoiceDateMillis) +
@@ -84,9 +110,10 @@ private fun InvoiceRow(invoice: SalesInvoiceEntity, onClick: () -> Unit) {
             )
         },
         trailingContent = {
-            Text(Money(invoice.grandTotalPaise).formatIndian())
+            Text(
+                Money(invoice.grandTotalPaise).formatIndian()
+            )
         },
         modifier = Modifier.clickable(onClick = onClick)
     )
 }
-```
